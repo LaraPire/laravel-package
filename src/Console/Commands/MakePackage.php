@@ -238,4 +238,92 @@ JSON;
 
         File::put($this->packagePath . '/composer.json', $composerJson);
     }
+
+    /**
+     * Create service provider.
+     *
+     * @return void
+     */
+    protected function createServiceProvider(): void
+    {
+        $serviceProviderName = $this->getServiceProviderName();
+        $stubContent = $this->getServiceProviderStub();
+
+        File::makeDirectory($this->packagePath . '/src', 0755, true);
+        File::put($this->packagePath . '/src/' . $serviceProviderName . '.php', $stubContent);
+    }
+
+    /**
+     * Get service provider name.
+     *
+     * @return string
+     */
+    protected function getServiceProviderName(): string
+    {
+        return Str::studly($this->packageName) . 'ServiceProvider';
+    }
+
+    /**
+     * Get service provider stub content.
+     *
+     * @return string
+     */
+    protected function getServiceProviderStub(): string
+    {
+        $serviceProviderName = $this->getServiceProviderName();
+        $packageNameStudly = Str::studly($this->packageName);
+
+        return <<<PHP
+<?php
+
+namespace {$this->namespace};
+
+use Illuminate\Support\ServiceProvider;
+
+class {$serviceProviderName} extends ServiceProvider
+{
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        // Register package services
+    }
+
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        // Load routes
+        \$this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+
+        // Load views
+        \$this->loadViewsFrom(__DIR__ . '/../resources/views', '{$this->packageName}');
+
+        // Load translations
+        \$this->loadTranslationsFrom(__DIR__ . '/../resources/lang', '{$this->packageName}');
+
+        // Load migrations
+        \$this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+
+        // Publish assets
+        \$this->publishes([
+            __DIR__ . '/../resources/views' => resource_path('views/vendor/{$this->packageName}'),
+        ], '{$this->packageName}-views');
+
+        if (\$this->app->runningInConsole()) {
+            // Publish config
+            \$this->publishes([
+                __DIR__ . '/../config/{$this->packageName}.php' => config_path('{$this->packageName}.php'),
+            ], '{$this->packageName}-config');
+        }
+    }
+}
+PHP;
+    }
 }
