@@ -416,4 +416,34 @@ JSON;
 
         File::put($this->packagePath . '/LICENSE.md', $licenseContent);
     }
+
+    /**
+     * Create config file.
+     *
+     * @return void
+     */
+    protected function createConfig(): void
+    {
+        $configContent = <<<PHP
+        <?php
+
+        return [
+            /*
+            |--------------------------------------------------------------------------
+            | {$this->packageName} Configuration
+            |--------------------------------------------------------------------------
+            |
+            | Here you can modify the configuration for your package
+            |
+            */
+
+            'option' => 'value',
+        ];
+        PHP;
+
+        File::makeDirectory($this->packagePath . '/config', 0755, true);
+        File::put($this->packagePath . '/config/' . $this->packageName . '.php', $configContent);
+    }
+
+
 }
