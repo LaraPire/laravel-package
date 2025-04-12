@@ -66,6 +66,12 @@ class MakePackage extends Command
     public function handle(): void
     {
         $this->parsePackageName();
+
+        if ($this->option('interactive')) {
+            $this->runInteractiveMode();
+        }
+
+        $this->createPackageDirectory();
     }
 
     /**
@@ -120,5 +126,24 @@ class MakePackage extends Command
         if ($this->confirm('Include config file?', true)) {
             $this->input->setOption('with-config', true);
         }
+    }
+
+    /**
+     * Create package base directory.
+     *
+     * @return void
+     */
+    protected function createPackageDirectory(): void
+    {
+        if (File::exists($this->packagePath)) {
+            if (!$this->confirm("The package directory already exists. Do you want to overwrite it?")) {
+                $this->error('Package creation aborted.');
+                exit(Command::FAILURE);
+            }
+
+            File::deleteDirectory($this->packagePath);
+        }
+
+        File::makeDirectory($this->packagePath, 0755, true);
     }
 }
