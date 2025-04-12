@@ -93,4 +93,32 @@ class MakePackage extends Command
         }
         $this->namespace = $namespace;
     }
+
+    /**
+     * Run interactive mode.
+     *
+     * @return void
+     */
+    protected function runInteractiveMode(): void
+    {
+        $this->info('Interactive mode enabled.');
+
+        // Ask for namespace
+        $namespace = $this->ask('Package namespace', $this->namespace);
+        $this->namespace = $namespace;
+
+        // Ask for package type
+        $type = $this->choice('Package type', ['default', 'admin-panel', 'api-service', 'theme'], 0);
+        $this->input->setOption('type', $type);
+
+        // Ask for tests
+        if ($this->confirm('Include tests directory?', true)) {
+            $this->input->setOption('with-tests', true);
+        }
+
+        // Ask for config
+        if ($this->confirm('Include config file?', true)) {
+            $this->input->setOption('with-config', true);
+        }
+    }
 }
