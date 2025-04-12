@@ -445,5 +445,112 @@ JSON;
         File::put($this->packagePath . '/config/' . $this->packageName . '.php', $configContent);
     }
 
+    /**
+     * Create tests directory and files.
+     *
+     * @return void
+     */
+    protected function createTests(): void
+    {
+        File::makeDirectory($this->packagePath . '/tests', 0755, true);
 
+        // Create TestCase.php
+        $testCaseContent = <<<PHP
+        <?php
+
+        namespace {$this->namespace}\\Tests;
+
+        use Orchestra\\Testbench\\TestCase as BaseTestCase;
+        use {$this->namespace}\\{$this->getServiceProviderName()};
+
+        abstract class TestCase extends BaseTestCase
+        {
+            protected function getPackageProviders(\$app)
+            {
+                return [
+                    {$this->getServiceProviderName()}::class,
+                ];
+            }
+
+            protected function getEnvironmentSetUp(\$app)
+            {
+                // Perform environment setup
+            }
+        }
+        PHP;
+
+        File::put($this->packagePath . '/tests/TestCase.php', $testCaseContent);
+
+        // Create example feature test
+        File::makeDirectory($this->packagePath . '/tests/Feature', 0755, true);
+        $featureTestContent = <<<PHP
+        <?php
+
+        namespace {$this->namespace}\\Tests\\Feature;
+
+        use {$this->namespace}\\Tests\\TestCase;
+
+        class ExampleTest extends TestCase
+        {
+            /** @test */
+            public function it_can_perform_basic_test()
+            {
+                \$this->assertTrue(true);
+            }
+        }
+        PHP;
+
+        File::put($this->packagePath . '/tests/Feature/ExampleTest.php', $featureTestContent);
+
+        // Create example unit test
+        File::makeDirectory($this->packagePath . '/tests/Unit', 0755, true);
+        $unitTestContent = <<<PHP
+        <?php
+
+        namespace {$this->namespace}\\Tests\\Unit;
+
+        use {$this->namespace}\\Tests\\TestCase;
+
+        class ExampleTest extends TestCase
+        {
+            /** @test */
+            public function it_can_perform_basic_test()
+            {
+                \$this->assertTrue(true);
+            }
+        }
+        PHP;
+
+        File::put($this->packagePath . '/tests/Unit/ExampleTest.php', $unitTestContent);
+
+        // Create phpunit.xml
+        $phpunitContent = <<<XML
+        <?xml version="1.0" encoding="UTF-8"?>
+        <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
+                 bootstrap="vendor/autoload.php"
+                 colors="true">
+            <testsuites>
+                <testsuite name="Unit">
+                    <directory suffix="Test.php">./tests/Unit</directory>
+                </testsuite>
+                <testsuite name="Feature">
+                    <directory suffix="Test.php">./tests/Feature</directory>
+                </testsuite>
+            </testsuites>
+            <coverage processUncoveredFiles="true">
+                <include>
+                    <directory suffix=".php">./src</directory>
+                </include>
+            </coverage>
+            <php>
+                <env name="APP_ENV" value="testing"/>
+                <env name="APP_KEY" value="base64:2fl+Ktvkfl+Fuz4Qp/A75G2RTiWVA/ZoKZvp6fiiM10="/>
+                <env name="CACHE_DRIVER" value="array"/>
+            </php>
+        </phpunit>
+        XML;
+
+        File::put($this->packagePath . '/phpunit.xml', $phpunitContent);
+    }
 }
