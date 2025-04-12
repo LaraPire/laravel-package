@@ -1,0 +1,49 @@
+{
+    "name": "rayiumir/laravel-package",
+    "description": " Easy creation with Laravel package.",
+    "keywords": [
+        "laravel-package",
+        "laravel package",
+        "easy package",
+        "laravel",
+        "laravel package package"
+    ],
+    "license": "MIT",
+    "type": "package",
+    "authors": [
+        {
+            "name": "Raymond Baghumian",
+            "email": "rayiumir@gmail.com",
+            "homepage": "https://github.com/Rayiumir",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Rayiumir\\LaravelPackage\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Rayiumir\\LaravelPackage\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "^8.0",
+        "illuminate/support": "^9.0|^10.0|^11.0|^12.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Rayiumir\\LaravelPackage\\ServiceProvider\\PackageServiceProvider"
+            ],
+            "aliases": {
+                "SlugableFacade": "Rayiumir\\LaravelPackage\\Facade\\PackageFacade"
+            }
+        }
+    },
+    "minimum-stability": "stable"
+}
