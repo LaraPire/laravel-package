@@ -1,7 +1,8 @@
 <?php
 
-namespace Providers;
+namespace Rayiumir\LaravelPackage\Providers;
 
+use App\Console\Commands\MakePackage;
 use Illuminate\Support\ServiceProvider;
 
 class MakePackageServiceProvider extends ServiceProvider
