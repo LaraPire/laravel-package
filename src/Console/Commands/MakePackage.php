@@ -274,56 +274,112 @@ JSON;
         $packageNameStudly = Str::studly($this->packageName);
 
         return <<<PHP
-<?php
+        <?php
 
-namespace {$this->namespace};
+        namespace {$this->namespace};
 
-use Illuminate\Support\ServiceProvider;
+        use Illuminate\Support\ServiceProvider;
 
-class {$serviceProviderName} extends ServiceProvider
-{
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        // Register package services
-    }
+        class {$serviceProviderName} extends ServiceProvider
+        {
+            /**
+             * Register any application services.
+             *
+             * @return void
+             */
+            public function register()
+            {
+                // Register package services
+            }
 
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        // Load routes
-        \$this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+            /**
+             * Bootstrap any application services.
+             *
+             * @return void
+             */
+            public function boot()
+            {
+                // Load routes
+                \$this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
 
-        // Load views
-        \$this->loadViewsFrom(__DIR__ . '/../resources/views', '{$this->packageName}');
+                // Load views
+                \$this->loadViewsFrom(__DIR__ . '/../resources/views', '{$this->packageName}');
 
-        // Load translations
-        \$this->loadTranslationsFrom(__DIR__ . '/../resources/lang', '{$this->packageName}');
+                // Load translations
+                \$this->loadTranslationsFrom(__DIR__ . '/../resources/lang', '{$this->packageName}');
 
-        // Load migrations
-        \$this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+                // Load migrations
+                \$this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
-        // Publish assets
-        \$this->publishes([
-            __DIR__ . '/../resources/views' => resource_path('views/vendor/{$this->packageName}'),
-        ], '{$this->packageName}-views');
+                // Publish assets
+                \$this->publishes([
+                    __DIR__ . '/../resources/views' => resource_path('views/vendor/{$this->packageName}'),
+                ], '{$this->packageName}-views');
 
-        if (\$this->app->runningInConsole()) {
-            // Publish config
-            \$this->publishes([
-                __DIR__ . '/../config/{$this->packageName}.php' => config_path('{$this->packageName}.php'),
-            ], '{$this->packageName}-config');
+                if (\$this->app->runningInConsole()) {
+                    // Publish config
+                    \$this->publishes([
+                        __DIR__ . '/../config/{$this->packageName}.php' => config_path('{$this->packageName}.php'),
+                    ], '{$this->packageName}-config');
+                }
+            }
         }
+        PHP;
     }
-}
-PHP;
+
+    /**
+     * Create README.md file.
+     *
+     * @return void
+     */
+    protected function createReadme(): void
+    {
+        $readmeContent = <<<MARKDOWN
+        # {$this->packageName}
+
+        [![Latest Version on Packagist](https://img.shields.io/packagist/v/{$this->vendorName}/{$this->packageName}.svg?style=flat-square)](https://packagist.org/packages/{$this->vendorName}/{$this->packageName})
+        [![Total Downloads](https://img.shields.io/packagist/dt/{$this->vendorName}/{$this->packageName}.svg?style=flat-square)](https://packagist.org/packages/{$this->vendorName}/{$this->packageName})
+
+        ## Installation
+
+        You can install the package via composer:
+
+        ```bash
+        composer require {$this->vendorName}/{$this->packageName}
+        ```
+
+        ## Usage
+
+        ```php
+        // Usage example
+        ```
+
+        ### Testing
+
+        ```bash
+        composer test
+        ```
+
+        ### Changelog
+
+        Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+
+        ## Contributing
+
+        Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+
+        ## Credits
+
+        - [Your Name](https://github.com/yourusername)
+        - [All Contributors](../../contributors)
+
+        ## License
+
+        The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+        MARKDOWN;
+
+        File::put($this->packagePath . '/README.md', $readmeContent);
     }
+
+    
 }
