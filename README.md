@@ -62,7 +62,7 @@ php artisan make:package my-package --with-tests
 The generated package will have the following structure:
 
 ```
-packages/package-name/
+packages/my-package/
 ├── config/
 ├── database/
 │   └── migrations/
@@ -111,7 +111,7 @@ When developing the package locally within a Laravel application, you can add th
 If you generated your package with the `--with-tests` option, you can run tests with:
 
 ```bash
-cd packages/my-awesome-package
+cd packages/my-package
 composer install
 vendor/bin/phpunit
 ```
