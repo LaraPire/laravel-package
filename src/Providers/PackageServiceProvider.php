@@ -2,10 +2,10 @@
 
 namespace Rayiumir\LaravelPackage\Providers;
 
-use App\Console\Commands\MakePackage;
 use Illuminate\Support\ServiceProvider;
+use Rayiumir\LaravelPackage\Console\Commands\Package;
 
-class MakePackageServiceProvider extends ServiceProvider
+class PackageServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
@@ -13,7 +13,7 @@ class MakePackageServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->commands([
-            MakePackage::class,
+            Package::class,
         ]);
     }
 

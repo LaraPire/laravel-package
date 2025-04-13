@@ -16,10 +16,10 @@ class PackageServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        $this->_publishes();
+        $this->_loadPublished();
     }
 
-    private function _publishes(): void
+    private function _loadPublished(): void
     {
         $this->publishes([
             __DIR__.'/../Console/Commands' => app_path('Console/Commands/')

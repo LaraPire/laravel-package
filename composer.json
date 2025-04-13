@@ -41,7 +41,7 @@
                 "Rayiumir\\LaravelPackage\\ServiceProvider\\PackageServiceProvider"
             ],
             "aliases": {
-                "SlugableFacade": "Rayiumir\\LaravelPackage\\Facade\\PackageFacade"
+                "PackageFacade": "Rayiumir\\LaravelPackage\\Facade\\PackageFacade"
             }
         }
     },
