@@ -128,14 +128,6 @@ Once your package is ready, you can publish it to Packagist:
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## Security
-
-If you discover any security-related issues, please email your-email@example.com instead of using the issue tracker.
-
-## License
-
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
-
 ## Support
 
 If you have any questions or need help, please:
