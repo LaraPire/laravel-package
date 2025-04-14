@@ -19,6 +19,12 @@ You can install the package via composer:
 composer require rayiumir/laravel-package
 ```
 
+After Publish Config Files:
+
+```
+php artisan vendor:publish --provider="Rayiumir\LaravelPackage\ServiceProvider\PackageServiceProvider"
+```
+
 The service provider will be automatically registered for Laravel 5.5+. For older versions, add the service provider manually:
 
 ```php
@@ -124,11 +130,32 @@ Once your package is ready, you can publish it to Packagist:
 2. Register your package on [Packagist](https://packagist.org/)
 3. Set up webhooks for automatic updates when you push changes
 
-## Contributing
+# Screenshots
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col" width="1000px">Command Install</th>
+      <th scope="col" width="1000px">Folders and Files</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <img src="./Screenshot/PackageOne.png" width="100%" alt="Command Install">
+      </td>
+      <td>
+        <img src="./Screenshot/PackageTwo.png" width="100%" alt="Folders and Files">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+# Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## Support
+# Support
 
 If you have any questions or need help, please:
 
