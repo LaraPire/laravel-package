@@ -56,15 +56,8 @@ class Package extends Command
         $packageName = $this->argument('name');
         $vendorName = $this->option('vendor');
         $withTests = $this->option('with-tests');
-        $force = $this->option('force');
 
         $packagePath = base_path('packages/' . $packageName);
-
-        // Check if the package directory already exists
-        if ($this->files->exists($packagePath) && !$force) {
-            $this->error('Package already exists!');
-            return 1;
-        }
 
         // Create package directories
         $this->createDirectories($packagePath, $withTests);
