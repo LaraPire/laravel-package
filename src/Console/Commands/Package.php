@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Rayiumir\LaravelPackage\Console\Commands;
+namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;

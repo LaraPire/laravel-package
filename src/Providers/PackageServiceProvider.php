@@ -1,9 +1,9 @@
 <?php
 
-namespace Rayiumir\LaravelPackage\Providers;
+namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Rayiumir\LaravelPackage\Console\Commands\Package;
+use App\Console\Commands\Package;
 
 class PackageServiceProvider extends ServiceProvider
 {
