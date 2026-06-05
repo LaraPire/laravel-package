@@ -28,11 +28,17 @@ php artisan vendor:publish --provider="Rayiumir\LaravelPackage\ServiceProvider\P
 The service provider will be automatically registered for Laravel 5.5+. For older versions, add the service provider manually:
 
 ```php
-// config/app.php
+//bootstrap/providers.php
+<?php
 
-'providers' => [
+use App\Providers\AppServiceProvider;
+
+return [
+    AppServiceProvider::class,
     Rayiumir\LaravelPackage\ServiceProvider\PackageServiceProvider::class,
 ];
+
+
 ```
 
 ## Usage
